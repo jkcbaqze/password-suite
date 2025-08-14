@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Username Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="omni-password.html">Password Generator</a>
+    <a href="bindmark-generator.html">Bindmark</a>
+  </nav>
+
+  <div class="container">
+    <h1>👤 Random Username Generator</h1>
+
+    <label for="length">Username Length (6–20)</label>
+    <input type="number" id="length" min="6" max="20" value="12">
+    <button onclick="generateUsername()">Generate Username</button>
+
+    <div class="output" id="result" style="display: none;"></div>
+  </div>
+
+  <script>
+    const syllables = [
+      "ab", "ac", "ad", "af", "ag", "ah", "aj", "ak", "al", "am",
+      "an", "ap", "ar", "as", "at", "av", "ax", "az", "eb", "ec",
+      "ed", "ef", "eg", "ek", "el", "en", "ep", "er", "es", "et",
+      "ib", "ic", "id", "if", "ig", "il", "im", "in", "ip", "ir",
+      "ob", "od", "of", "og", "ol", "om", "on", "op", "or", "os",
+      "ub", "ud", "uf", "ug", "ul", "um", "un", "up", "ur", "us"
+    ];
+
+    function getRandomSyllable() {
+      return syllables[Math.floor(Math.random() * syllables.length)];
+    }
+
+    function generateUsername() {
+      const length = parseInt(document.getElementById('length').value);
+      if (isNaN(length) || length < 6 || length > 20) {
+        alert('Please enter a username length between 6 and 20.');
+        return;
+      }
+
+      let username = '';
+      while (username.length < length) {
+        username += getRandomSyllable();
+      }
+      username = username.slice(0, length);
+
+      const result = document.getElementById('result');
+      result.style.display = 'block';
+      result.textContent = `Generated Username: ${username}`;
+    }
+  </script>
+</body>
+</html>

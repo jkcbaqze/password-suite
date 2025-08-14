@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Severance Terminal</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      color: #00FF00;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #crt-screen {
+      width: 80ch;
+      height: calc(1.4em * 20 + 160px);
+      background-color: #001100;
+      border: 4px solid #00FF00;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00FF00AA inset, 0 0 12px #00FF0055;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    #crt-screen::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(rgba(0,255,0,0.05) 50%, transparent 50%);
+      background-size: 100% 2px;
+      pointer-events: none;
+      z-index: 999;
+    }
+    #header {
+      text-align: center;
+      padding: 5px;
+      border-bottom: 1px solid #00FF00;
+      font-size: 14px;
+    }
+    #main-display {
+      display: grid;
+      grid-template-columns: repeat(80, 1ch);
+      grid-template-rows: repeat(20, 1.4em);
+      line-height: 1.4;
+      overflow: hidden;
+      padding: 0;
+      margin: 0;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+    .char-cell {
+      width: 1ch;
+      height: 1.4em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.1s ease, text-shadow 0.1s ease;
+    }
+    .char-cell.ripple-center {
+      transform: scale(1.4);
+      text-shadow: 0 0 8px #00FF00BB;
+      z-index: 10;
+    }
+    .char-cell.ripple-near {
+      transform: scale(1.2);
+      text-shadow: 0 0 4px #00FF0077;
+    }
+    .char-cell.phantom {
+      color: #99ff99;
+      font-style: italic;
+      animation: fadeOut 6s ease forwards;
+    }
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    #password-output {
+      padding: 6px;
+      border-top: 1px solid #00FF00;
+      background-color: #002200;
+      font-weight: bold;
+      text-align: center;
+      display: none;
+      font-size: 14px;
+    }
+    .drag-box-container {
+      display: flex;
+      justify-content: space-around;
+      padding: 5px;
+      background-color: #001100;
+      border-top: 1px solid #00FF00;
+    }
+    .drag-box {
+      width: 80px;
+      height: 40px;
+      border: 1px solid #00FF00;
+      background-color: #003300;
+      color: #00FF00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      user-select: none;
+    }
+    .drag-box.filled {
+      background-color: #005500;
+    }
+    #progress-status {
+      text-align: center;
+      padding: 4px;
+      font-size: 13px;
+      color: #66ff66;
+      border-top: 1px solid #00FF00;
+      background-color: #001800;
+    }
+    #reset-button {
+      text-align: center;
+      padding: 5px;
+      background-color: #000f00;
+    }
+    #reset-button button {
+      background-color: #003300;
+      color: #00FF00;
+      font-family: inherit;
+      font-size: 14px;
+      border: 1px solid #00FF00;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    #reset-button button:hover {
+      background-color: #004400;
+    }
+  </style>
+</head>
+<body>
+  <div id="crt-screen">
+    <div id="header">LUMON INDUSTRIES | DATA REFINEMENT TERMINAL</div>
+    <div id="main-display"></div>
+    <div id="progress-status">Refinement Progress: 0/5 Complete</div>
+    <div id="password-output"></div>
+    <div class="drag-box-container">
+      <div class="drag-box" data-index="0"></div>
+      <div class="drag-box" data-index="1"></div>
+      <div class="drag-box" data-index="2"></div>
+      <div class="drag-box" data-index="3"></div>
+      <div class="drag-box" data-index="4"></div>
+    </div>
+    <div id="reset-button">
+      <button onclick="location.reload()">Reset Terminal</button>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Password Suite Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <a href="#" class="active">Dashboard</a>
+    <a href="username-generator.html">Username Generator</a>
+    <a href="omni-password.html">Password Generator</a>
+    <a href="bindmark-generator.html">Bindmark</a>
+  </nav>
+
+  <div class="container">
+    <h1>🔐 Password Suite</h1>
+    <p class="description">A modern suite of tools for generating, analyzing, and binding secure credentials. Choose your mission:</p>
+
+    <div class="grid">
+      <a href="username-generator.html" class="card">
+        <h2>Username Generator</h2>
+        <p>Smart and pronounceable usernames, customized to your liking.</p>
+      </a>
+      <a href="omni-password.html" class="card">
+        <h2>Omni Password Generator</h2>
+        <p>The most selectable password generator on the planet. Precision meets power.</p>
+      </a>
+      <a href="bindmark-generator.html" class="card">
+        <h2>Bindmark</h2>
+        <p>Generate secure, bound username/password pairs embedded with secret hints.</p>
+      </a>
+      <a href="severance.html" class="card hidden-easter" title="Shhh...">
+        <h2>Severance Mode</h2>
+        <p>A retro-styled password game hidden in plain sight. Hover to reveal.</p>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const hiddenCard = document.querySelector('.hidden-easter');
+    hiddenCard.style.opacity = '0';
+    hiddenCard.style.pointerEvents = 'none';
+
+    document.querySelector('.grid').addEventListener('mousemove', (e) => {
+      const { left, right, top, bottom } = hiddenCard.getBoundingClientRect();
+      const isNear = e.clientX > right - 50 && e.clientY > bottom - 50;
+      if (isNear) {
+        hiddenCard.style.opacity = '1';
+        hiddenCard.style.pointerEvents = 'auto';
+        hiddenCard.style.transition = 'opacity 0.5s';
+      }
+    });
+  </script>
+</body>
+</html>
